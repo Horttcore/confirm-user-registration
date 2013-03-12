@@ -4,7 +4,7 @@ Donate link: http://horttcore.de/
 Tags: user, registration, sign up, user management
 Requires at least: 3.0
 Tested up to: 3.4
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 
 Admins have to confirm each user registration.
 
