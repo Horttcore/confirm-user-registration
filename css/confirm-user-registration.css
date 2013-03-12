@@ -1,0 +1,20 @@
+#cb {
+	width: 30px;
+}
+
+#gravatar {
+	width: 70px;
+}
+
+.gravatar {
+	border: 1px solid #666;
+	-moz-border-radius: 2px;
+	-ms-border-radius: 2px;
+	-o-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+}
+
+.loading {
+	opacity: .5
+}

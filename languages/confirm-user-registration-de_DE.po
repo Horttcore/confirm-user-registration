@@ -1,0 +1,149 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Confirm User Registration v2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2012-07-17 12:29:53+0000\n"
+"Last-Translator: horttcore <me@horttcore.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: confirm-user-registration.php:94
+#@ confirm-user-registration
+msgid "<strong>ERROR:</strong> Your account has to be confirmed by an administrator before you can login"
+msgstr "<strong>FEHLER:</strong> Ihr Benutzerkonto muss erst freigeschaltet werden"
+
+#: confirm-user-registration.php:398
+#@ confirm-user-registration
+msgid "Pending Users"
+msgstr "Benutzer freischalten"
+
+#: confirm-user-registration.php:399
+#@ confirm-user-registration
+msgid "Authenticated Users"
+msgstr "Benutzer blocken"
+
+#: confirm-user-registration.php:400
+#@ confirm-user-registration
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: confirm-user-registration.php:419
+#@ confirm-user-registration
+msgid "Settings saved"
+msgstr "Einstellungen gespeichert"
+
+#: confirm-user-registration.php:419
+#@ confirm-user-registration
+msgid "<strong>ERROR:</strong> Could not save settings"
+msgstr "<strong>FEHLER:</strong> Einstellungen konnten nicht gespeichert werden"
+
+#: confirm-user-registration.php:420
+#@ confirm-user-registration
+msgid "Confirm User Registration Settings"
+msgstr "Confirm User Registration Einstellungen"
+
+#: confirm-user-registration.php:423
+#@ confirm-user-registration
+msgid "Login notice"
+msgstr "Login Meldung"
+
+#: confirm-user-registration.php:426
+#@ confirm-user-registration
+msgid "Error Message"
+msgstr "Fehler Meldung"
+
+#: confirm-user-registration.php:430
+#@ confirm-user-registration
+msgid "E-Mail notification"
+msgstr "E-Mail Benachrichtigung"
+
+#: confirm-user-registration.php:445
+#@ confirm-user-registration
+msgid "Save"
+msgstr "Speichern"
+
+#: confirm-user-registration.php:463
+#@ confirm-user-registration
+msgid "Authenticate Users"
+msgstr "Benutzer freischalten"
+
+#: confirm-user-registration.php:463
+#: confirm-user-registration.php:464
+#@ confirm-user-registration
+msgid "Block Users"
+msgstr "Benutzer blockieren"
+
+#: confirm-user-registration.php:464
+#@ confirm-user-registration
+msgid "Auth Users"
+msgstr "Benutzer freischalten"
+
+#: confirm-user-registration.php:478
+#@ confirm-user-registration
+msgid "Gravatar"
+msgstr "Gravatar"
+
+#: confirm-user-registration.php:479
+#@ confirm-user-registration
+msgid "Name"
+msgstr "Name"
+
+#: confirm-user-registration.php:480
+#@ confirm-user-registration
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: confirm-user-registration.php:481
+#@ confirm-user-registration
+msgid "Role"
+msgstr "Benutzerrolle"
+
+#: confirm-user-registration.php:482
+#@ confirm-user-registration
+msgid "Registered"
+msgstr "Registriert"
+
+#: confirm-user-registration.php:522
+#@ confirm-user-registration
+msgid "No Users found"
+msgstr "Keine Benutzer gefunden"
+
+#: confirm-user-registration.php:433
+#@ confirm-user-registration
+msgid "From"
+msgstr "Absender"
+
+#: confirm-user-registration.php:437
+#@ confirm-user-registration
+msgid "Subject"
+msgstr "Betreff"
+
+#: confirm-user-registration.php:441
+#@ confirm-user-registration
+msgid "Message"
+msgstr "Nachricht"
+
+#: confirm-user-registration.php:140
+#@ confirm-user-registration
+msgctxt "Menu title"
+msgid "Confirm User Registration"
+msgstr "Benutzer freischalten"
+
+#: confirm-user-registration.php:140
+#@ confirm-user-registration
+msgctxt "Page title"
+msgid "Confirm User Registration"
+msgstr "Confirm User Registration"
+
