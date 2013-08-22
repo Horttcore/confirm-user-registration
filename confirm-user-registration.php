@@ -4,7 +4,7 @@ Plugin Name: Confirm User Registration
 Plugin URI: http://www.horttcore.de/
 Description: Admins have to confirm a user registration - a notification will be send when the account gets activated
 Author: Ralf Hortt
-Version: 2.0.4
+Version: 2.1
 Author URI: http://horttcore.de/
 */
 
@@ -52,8 +52,6 @@ class Confirm_User_Registration
 		add_action( 'admin_print_styles-users_page_confirm-user-registration', array( $this, 'enqueue_styles' ) );
 
 		add_action( 'wp_ajax_confirm-user-registration-save_settings', array( $this, 'save_settings' ) );
-		add_action( 'wp_ajax_confirm-user-registration-auth_users', array( $this, 'auth_users' ) );
-		add_action( 'wp_ajax_confirm-user-registration-block_users', array( $this, 'block_users' ) );
 		add_action( 'admin_init', array( $this, 'load_plugin_textdomain' ) );
 
 		add_action( 'wp_authenticate_user', array( $this, 'wp_authenticate_user' ) ); # Prevent login if user is not authed
@@ -147,26 +145,33 @@ class Confirm_User_Registration
 	 * Authenticate Users
 	 *
 	 * @access public
+	 * @param array $user_ids User IDs to confirm
 	 * @return void
 	 * @author Ralf Hortt
 	 **/
-	public function auth_users()
+	public function auth_users( array $user_ids )
 	{
-		if ( $_POST['user_ids'] ) :
+		if ( $user_ids ) :
 
-			foreach ( $_POST['user_ids'] as $user_id ) :
+			foreach ( $user_ids as $user_id ) :
 
-				update_user_meta( $user_id, 'authentication', '1' );
-				do_action( 'confirm-user-registration-auth-user', $user_id );
-				$this->send_notification( $user_id );
+				if ( is_numeric( $user_id ) ) :
+					update_user_meta( $user_id, 'authentication', '1' );
+					do_action( 'confirm-user-registration-auth-user', $user_id );
+					$this->send_notification( $user_id );
+				endif;
 
 			endforeach;
 
-			die('1');
-
-		else :
-
-			die('No User IDs');
+			?>
+			<div class="updated message">
+				<?php if ( 1 == count( $user_ids) ) : ?>
+					<p><?php _e( '1 user authenticated', 'confirm-user-registration' ) ?></p>
+				<?php else : ?>
+					<p><?php echo count( $user_ids ) .  ' ' . __( 'users authenticated', 'confirm-user-registration' ) ?></p>
+				<?php endif; ?>
+			</div>
+			<?php
 
 		endif;
 	}
@@ -177,29 +182,72 @@ class Confirm_User_Registration
 	 * Block Users
 	 *
 	 * @access public
+	 * @param array $user_ids User IDs to block
 	 * @return void
 	 * @author Ralf Hortt
 	 **/
-	public function block_users()
+	public function block_users( array $user_ids )
 	{
-		if ( $_POST['user_ids'] ) :
+		if ( $user_ids ) :
 
-			foreach ( $_POST['user_ids'] as $user_id ) :
+			foreach ( $user_ids as $user_id ) :
 
-				delete_user_meta( $user_id, 'authentication' );
-				do_action( 'confirm-user-registration-block-user', $user_id );
+				if ( is_numeric( $user_id ) ) :
+					delete_user_meta( $user_id, 'authentication' );
+					do_action( 'confirm-user-registration-block-user', $user_id );
+				endif;
 
 			endforeach;
 
-			die('1');
-
-		else :
-
-			die('No User IDs');
+			?>
+			<div class="updated message">
+				<?php if ( 1 == count( $user_ids) ) : ?>
+					<p><?php _e( '1 user blocked', 'confirm-user-registration' ) ?></p>
+				<?php else : ?>
+					<p><?php echo count( $user_ids ) .  ' ' . __( 'users blocked', 'confirm-user-registration' ) ?></p>
+				<?php endif; ?>
+			</div>
+			<?php
 
 		endif;
 	}
 
+
+
+	/**
+	 * Bulk delete users
+	 *
+	 * @access public
+	 * @param array $user_ids User IDs to block
+	 * @return void
+	 * @since 2.1
+	 * @author Ralf Hortt
+	 **/
+	public function delete_users( array $user_ids )
+	{
+		if ( $user_ids ) :
+
+			foreach ( $user_ids as $user_id ) :
+
+				if ( is_numeric( $user_id ) ) :
+					wp_delete_user( $user_id );
+					do_action( 'confirm-user-registration-delete-user', $user_id );
+				endif;
+
+			endforeach;
+
+			?>
+			<div class="updated message">
+				<?php if ( 1 == count( $user_ids) ) : ?>
+					<p><?php _e( '1 user deleted', 'confirm-user-registration' ) ?></p>
+				<?php else : ?>
+					<p><?php echo count( $user_ids ) .  ' ' . __( 'users deleted', 'confirm-user-registration' ) ?></p>
+				<?php endif; ?>
+			</div>
+			<?php
+
+		endif;
+	}
 
 
 	/**
@@ -212,6 +260,10 @@ class Confirm_User_Registration
 	public function enqueue_scripts()
 	{
 		wp_enqueue_script( 'confirm-user-registration', WP_PLUGIN_URL . '/' . RH_CUR_BASEDIR . '/javascript/confirm-user-registration.js' );
+		$translation_array = array(
+			'delete_users_warning' => __( 'Are you sure you want to delete these users?', 'confirm-user-registration' ),
+		);
+		wp_localize_script( 'confirm-user-registration', 'CUR', $translation_array );
 	}
 
 
@@ -374,10 +426,11 @@ class Confirm_User_Registration
 			<?php $this->management_nav(); ?>
 
 			<?php
-			if ( 'settings' == $_GET['tab'] ) :
+			$tab = ( isset( $_GET['tab'] ) ) ? $_GET['tab'] : '';
+			if ( 'settings' == $tab ) :
 				$this->management_settings();
 			else :
-				$this->management_users( $_GET['tab'] );
+				$this->management_users( $tab );
 			endif;
 			?>
 
@@ -401,6 +454,7 @@ class Confirm_User_Registration
 			<a class="nav-tab <?php if ( 'pending' == $_GET['tab'] || !$_GET['tab']) echo 'nav-tab-active' ?>" href="users.php?page=confirm-user-registration&amp;tab=pending"><?php _e( 'Pending Users', 'confirm-user-registration' ); ?></a>
 			<a class="nav-tab <?php if ( 'authed' == $_GET['tab'] ) echo 'nav-tab-active' ?>" href="users.php?page=confirm-user-registration&amp;tab=authed"><?php _e( 'Authenticated Users', 'confirm-user-registration' ); ?></a>
 			<a class="nav-tab <?php if ( 'settings' == $_GET['tab'] ) echo 'nav-tab-active' ?>" href="users.php?page=confirm-user-registration&amp;tab=settings"><?php _e( 'Settings', 'confirm-user-registration' ); ?></a>
+			<a class="nav-tab" href="https://github.com/Horttcore/confirm-user-registration" target="_blank"><?php _e( 'Help' ); ?></a>
 		</h2>
 		<?php
 	}
@@ -416,8 +470,8 @@ class Confirm_User_Registration
 	 **/
 	public function management_settings()
 	{
+		$this->save_settings();
 		$options = get_option( 'confirm-user-registration' );
-
 		?>
 		<form method="post" id="confirm-user-registration-settings" data-success="<?php _e( 'Settings saved', 'confirm-user-registration' ); ?>" data-error="<?php _e( '<strong>ERROR:</strong> Could not save settings', 'confirm-user-registration' ); ?>">
 			<div class="icon32" id="icon-tools"><br></div><h2><?php _e( 'Confirm User Registration Settings', 'confirm-user-registration' ); ?></h2>
@@ -447,6 +501,7 @@ class Confirm_User_Registration
 				<?php do_action( 'confirm-user-registration-options' ) ?>
 			</table>
 			<p class="submit"><button id="save-settings" class="button button-primary" type="submit"><?php _e( 'Save', 'confirm-user-registration' )?></button></p>
+			<?php wp_nonce_field( 'save-confirm-user-registration-settings', 'save-confirm-user-registration-settings-nonce' ) ?>
 		</form>
 		<?php
 	}
@@ -465,93 +520,108 @@ class Confirm_User_Registration
 	{
 		global $user_ID;
 
-		$users = ( 'pending' == $tab || !$_GET['tab'] ) ? $this->get_pending_users() : $this->get_authed_users();
-		$title = ( 'pending' == $tab || !$_GET['tab'] ) ? __( 'Authenticate Users', 'confirm-user-registration' ) : __( 'Block Users', 'confirm-user-registration' );
-		$action_data = ( 'pending' == $tab || !$_GET['tab'] ) ? 'auth' : 'block';
+		if ( $_POST && 'auth' == $_POST['action'] && wp_verify_nonce( $_POST['confirm-bulk-action-nonce'], 'confirm-bulk-action' ) ) :
+			$this->auth_users( $_POST['users'] );
+		elseif ( $_POST && 'block' == $_POST['action'] && wp_verify_nonce( $_POST['confirm-bulk-action-nonce'], 'confirm-bulk-action' ) ) :
+			$this->block_users( $_POST['users'] );
+		elseif ( $_POST && 'delete' == $_POST['action'] && wp_verify_nonce( $_POST['confirm-bulk-action-nonce'], 'confirm-bulk-action' ) ) :
+			$this->delete_users( $_POST['users'] );
+		endif;
+
+		$users = ( 'pending' == $tab || '' == $tab ) ? $this->get_pending_users() : $this->get_authed_users();
+		$title = ( 'pending' == $tab || '' == $tab ) ? __( 'Authenticate Users', 'confirm-user-registration' ) : __( 'Block Users', 'confirm-user-registration' );
+		$action_data = ( 'pending' == $tab || '' == $tab ) ? 'auth' : 'block';
 		?>
 
 		<div class="icon32" id="icon-users"><br></div><h2><?php echo $title ?></h2>
 
-		<div class="tablenav top">
-			<input type="submit" value="<?php echo $title ?>" class="button action doaction" name="" data-value="<?php echo $action_data ?>">
-		</div>
+		<form method="post">
 
-		<table class="widefat">
-			<thead>
-				<tr>
-					<th id="cb"><input type="checkbox" name="check-all" valle="Check all"></th>
-					<th id="gravatar"><?php _e( 'Gravatar', 'confirm-user-registration' ); ?></th>
-					<th id="display_name"><?php _e( 'Name', 'confirm-user-registration' ); ?></th>
-					<th id="email"><?php _e( 'E-Mail', 'confirm-user-registration' ); ?></th>
-					<th id="role"><?php _e( 'Role', 'confirm-user-registration' ); ?></th>
-					<th id="registered"><?php _e( 'Registered', 'confirm-user-registration' ); ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php
-				if ( $users ) :
-					$i = 1;
-					foreach ( $users as $user ) :
-						$class = ( $i % 2 == 1 ) ? 'alternate' : 'default';
-						$user_data = get_userdata( $user->ID );
-						$user_registered = mysql2date(get_option('date_format'), $user->user_registered);
+			<?php wp_nonce_field( 'confirm-bulk-action', 'confirm-bulk-action-nonce' ) ?>
+
+			<div class="tablenav top">
+				<select name="action">
+					<option value=""><?php _e( 'Bulk Actions' ); ?></option>
+					<option value="<?php echo $action_data ?>"><?php echo $title ?></option>
+					<option value="delete"><?php _e( 'Delete' ); ?></option>
+				</select>
+				<input type="submit" value="<?php _e( 'Apply' ); ?>" class="button action doaction" name="" data-value="<?php echo $action_data ?>">
+			</div>
+
+			<table class="widefat">
+				<thead>
+					<tr>
+						<th id="cb"><input type="checkbox" name="check-all" valle="Check all"></th>
+						<th id="gravatar"><?php _e( 'Gravatar', 'confirm-user-registration' ); ?></th>
+						<th id="display_name"><?php _e( 'Name', 'confirm-user-registration' ); ?></th>
+						<th id="email"><?php _e( 'E-Mail', 'confirm-user-registration' ); ?></th>
+						<th id="role"><?php _e( 'Role', 'confirm-user-registration' ); ?></th>
+						<th id="registered"><?php _e( 'Registered', 'confirm-user-registration' ); ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					if ( $users ) :
+						$i = 1;
+						foreach ( $users as $user ) :
+							$class = ( $i % 2 == 1 ) ? 'alternate' : 'default';
+							$user_data = get_userdata( $user->ID );
+							$user_registered = mysql2date(get_option('date_format'), $user->user_registered);
+							?>
+							<tr id="user-<?php echo $user->ID ?>" class="<?php echo $class ?>">
+								<th>
+									<?php $disabled = ( $user->ID == $user_ID ) ? 'disabled="disabled"' : ''; ?>
+									<input <?php echo $disabled ?> type="checkbox" name="users[]" value="<?php echo $user->ID ?>">
+								</th>
+								<td><img class="gravatar" src="http://www.gravatar.com/avatar/<?php echo md5( $user->user_email ) ?>?s=32"></td>
+								<td>
+									<a href="user-edit.php?user_id=<?php echo $user->ID ?>"><?php echo $user->display_name ?></a>
+									<div class="row-actions">
+										<?php if ( current_user_can( 'edit_user',  $user->ID ) ) : ?>
+											<span class="edit"><a href="<?php echo admin_url( 'user-edit.php?user_id=' . $user->ID  ) ?>"><?php _e( 'Edit' ); ?></a>
+										<?php endif; ?>
+										<?php if ( current_user_can( 'edit_user',  $user->ID ) && current_user_can( 'delete_user', $user->ID ) && $user_ID != $user->ID ) : ?>
+											&nbsp;|&nbsp;</span>
+										<?php endif; ?>
+										<?php if ( current_user_can( 'delete_user', $user->ID ) && $user_ID != $user->ID ) : ?>
+											<span class="delete"><a href="<?php echo admin_url( 'users.php?action=delete&user=' . $user->ID . '&_wpnonce=' . wp_create_nonce( 'bulk-users' ) ) ?>"><?php _e( 'Delete' ); ?></a></span>
+										<?php endif; ?>
+									</div>
+								</td>
+								<td><a href="mailto:<?php echo $user->user_email ?>"><?php echo $user->user_email ?></a></td>
+								<td>
+									<?php
+									if ( $user_data->roles ) :
+
+										foreach ( $user_data->roles as $role ) :
+
+											echo ucfirst( $role ) . '<br>';
+
+										endforeach;
+
+									endif;
+									?>
+								</td>
+								<td><?php echo $user_registered ?></td>
+							</tr>
+							<?php
+							$i++;
+						endforeach;
+
+					else :
+
 						?>
-						<tr id="user-<?php echo $user->ID ?>" class="<?php echo $class ?>">
-							<th>
-								<?php $disabled = ( $user->ID == $user_ID ) ? 'disabled="disabled"' : ''; ?>
-								<input <?php echo $disabled ?> type="checkbox" name="users[]" value="<?php echo $user->ID ?>">
-							</th>
-							<td><img class="gravatar" src="http://www.gravatar.com/avatar/<?php echo md5( $user->user_email ) ?>?s=32"></td>
-							<td>
-								<a href="user-edit.php?user_id=<?php echo $user->ID ?>"><?php echo $user->display_name ?></a>
-								<div class="row-actions">
-									<?php if ( current_user_can( 'edit_user',  $user->ID ) ) : ?>
-										<span class="edit"><a href="<?php echo admin_url( 'user-edit.php?user_id=' . $user->ID  ) ?>"><?php _e( 'Edit' ); ?></a>
-									<?php endif; ?>
-									<?php if ( current_user_can( 'edit_user',  $user->ID ) && current_user_can( 'delete_user', $user->ID ) && $user_ID != $user->ID ) : ?>
-										&nbsp;|&nbsp;</span>
-									<?php endif; ?>
-									<?php if ( current_user_can( 'delete_user', $user->ID ) && $user_ID != $user->ID ) : ?>
-										<span class="delete"><a href="<?php echo admin_url( 'users.php?action=delete&user=' . $user->ID . '&_wpnonce=' . wp_create_nonce( 'bulk-users' ) ) ?>"><?php _e( 'Delete' ); ?></a></span>
-									<?php endif; ?>
-								</div>
-							</td>
-							<td><a href="mailto:<?php echo $user->user_email ?>"><?php echo $user->user_email ?></a></td>
-							<td>
-								<?php
-								if ( $user_data->roles ) :
-
-									foreach ( $user_data->roles as $role ) :
-
-										echo ucfirst( $role ) . '<br>';
-
-									endforeach;
-
-								endif;
-								?>
-							</td>
-							<td><?php echo $user_registered ?></td>
+						<tr>
+							<td colspan="6"><strong><?php _e( 'No Users found', 'confirm-user-registration' ); ?></strong></td>
 						</tr>
 						<?php
-						$i++;
-					endforeach;
 
-				else :
-
+					endif;
 					?>
-					<tr>
-						<td colspan="6"><strong><?php _e( 'No Users found', 'confirm-user-registration' ); ?></strong></td>
-					</tr>
-					<?php
+				</tbody>
+			</table>
 
-				endif;
-				?>
-			</tbody>
-		</table>
-
-		<div class="tablenav bottom">
-			<input type="submit" value="<?php echo $title ?>" class="button doaction" name="" data-value="<?php echo $action_data ?>">
-		</div>
+		</form>
 		<?php
 	}
 
@@ -566,7 +636,7 @@ class Confirm_User_Registration
 	 **/
 	public function save_settings()
 	{
-		if ($_POST) :
+		if ( $_POST && wp_verify_nonce( $_POST['save-confirm-user-registration-settings-nonce'], 'save-confirm-user-registration-settings' ) ) :
 			$options = array(
 				'error' => $_POST['error'],
 				'from' => $_POST['from'],
@@ -576,9 +646,12 @@ class Confirm_User_Registration
 
 			$options = apply_filters( 'confirm-user-registration-save-options', $options );
 			update_option( 'confirm-user-registration', $options);
-			die('1');
-		else :
-			die('0');
+
+			?>
+			<div class="updated message">
+				<p><?php _e( 'Saved' ); ?></p>
+			</div>
+			<?php
 		endif;
 	}
 

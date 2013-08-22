@@ -3,8 +3,8 @@ Contributors: Horttcore
 Donate link: http://horttcore.de/
 Tags: user, registration, sign up, user management
 Requires at least: 3.0
-Tested up to: 3.4
-Stable tag: 2.0.4
+Tested up to: 3.7
+Stable tag: 2.1
 
 Admins have to confirm each user registration.
 
@@ -14,6 +14,10 @@ Admins have to confirm each user registration.
 A notification will be send when the account gets approved.
 
 == Changelog ==
+
+**v2.1**
+
+- Enhancement: Bulk authenticate, block and delete - props Chris Lee
 
 **v2.0.4**
 
