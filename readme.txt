@@ -15,6 +15,11 @@ A notification will be send when the account gets approved.
 
 == Changelog ==
 
+**v2.1.1**
+
+- Bugfix: Bulk delete checks for delete_users capability
+- Bugfix: Missing translation for user roles
+
 **v2.1**
 
 - Enhancement: Bulk authenticate, block and delete - props Chris Lee

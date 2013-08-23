@@ -4,7 +4,7 @@ Plugin Name: Confirm User Registration
 Plugin URI: http://www.horttcore.de/
 Description: Admins have to confirm a user registration - a notification will be send when the account gets activated
 Author: Ralf Hortt
-Version: 2.1
+Version: 2.1.1
 Author URI: http://horttcore.de/
 */
 
@@ -151,7 +151,7 @@ class Confirm_User_Registration
 	 **/
 	public function auth_users( array $user_ids )
 	{
-		if ( $user_ids ) :
+		if ( $user_ids && current_user_can( 'promote_users' ) ) :
 
 			foreach ( $user_ids as $user_id ) :
 
@@ -188,7 +188,7 @@ class Confirm_User_Registration
 	 **/
 	public function block_users( array $user_ids )
 	{
-		if ( $user_ids ) :
+		if ( $user_ids && current_user_can( 'promote_users' ) ) :
 
 			foreach ( $user_ids as $user_id ) :
 
@@ -225,7 +225,7 @@ class Confirm_User_Registration
 	 **/
 	public function delete_users( array $user_ids )
 	{
-		if ( $user_ids ) :
+		if ( $user_ids && current_user_can( 'delete_users' ) ) :
 
 			foreach ( $user_ids as $user_id ) :
 
@@ -543,7 +543,9 @@ class Confirm_User_Registration
 				<select name="action">
 					<option value=""><?php _e( 'Bulk Actions' ); ?></option>
 					<option value="<?php echo $action_data ?>"><?php echo $title ?></option>
-					<option value="delete"><?php _e( 'Delete' ); ?></option>
+					<?php if ( current_user_can( 'delete_users' ) ) : ?>
+						<option value="delete"><?php _e( 'Delete' ); ?></option>
+					<?php endif; ?>
 				</select>
 				<input type="submit" value="<?php _e( 'Apply' ); ?>" class="button action doaction" name="" data-value="<?php echo $action_data ?>">
 			</div>
@@ -570,8 +572,9 @@ class Confirm_User_Registration
 							?>
 							<tr id="user-<?php echo $user->ID ?>" class="<?php echo $class ?>">
 								<th>
-									<?php $disabled = ( $user->ID == $user_ID ) ? 'disabled="disabled"' : ''; ?>
-									<input <?php echo $disabled ?> type="checkbox" name="users[]" value="<?php echo $user->ID ?>">
+									<?php if ( $user->ID != $user_ID ) :?>
+										<input type="checkbox" name="users[]" value="<?php echo $user->ID ?>">
+									<?php endif; ?>
 								</th>
 								<td><img class="gravatar" src="http://www.gravatar.com/avatar/<?php echo md5( $user->user_email ) ?>?s=32"></td>
 								<td>
@@ -595,7 +598,7 @@ class Confirm_User_Registration
 
 										foreach ( $user_data->roles as $role ) :
 
-											echo ucfirst( $role ) . '<br>';
+											echo _x( ucfirst( $role ), 'User role' ) . '<br>';
 
 										endforeach;
 
