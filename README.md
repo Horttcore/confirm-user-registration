@@ -30,9 +30,9 @@ English and german are included.
 
 ## Screenshots
 
-![Screenshot of the auth/block users tab](https://raw.github.com/Horttcore/confirm-user-registration/master/screenshot-1.png)
-![Screenshot of the settings tab](https://raw.github.com/Horttcore/confirm-user-registration/master/screenshot-2.png)
-![Screenshot of login error](https://raw.github.com/Horttcore/confirm-user-registration/master/screenshot-3.png)
+![Screenshot of the auth/block users tab](https://raw.github.com/Horttcore/confirm-user-registration/master/screenshot-1.jpg)
+![Screenshot of the settings tab](https://raw.github.com/Horttcore/confirm-user-registration/master/screenshot-2.jpg)
+![Screenshot of login error](https://raw.github.com/Horttcore/confirm-user-registration/master/screenshot-3.jpg)
 
 ## Changelog
 
