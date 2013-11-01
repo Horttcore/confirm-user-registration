@@ -49,7 +49,7 @@ English and german are included.
 
 ### v2.0.4
 
-* Enhancement: Added 'edit' and 'delete' links - props Chris Lee
+* Enhancement: Added `edit` and `delete` links - props Chris Lee
 
 ### v2.0.3
 
@@ -61,14 +61,14 @@ English and german are included.
 
 ### v2.0.1
 
-* Added action: 'confirm-user-registration-auth-user'; User ID as parameter
-* Added action: 'confirm-user-registration-block-user'; User ID as parameter
-* Added action: 'confirm-user-registration-options'; for extending the plugin settings
-* Added filter: 'confirm-user-registration-error-message'; Display different error message
-* Added filter: 'confirm-user-registration-save-option'; Save custom options
-* Added filter: 'confirm-user-registration-notification-header'; Change notification e-mail header
-* Added filter: 'confirm-user-registration-notification-subject'; Change notification e-mail subject
-* Added filter: 'confirm-user-registration-notification-message'; Change notification e-mail message
+* Added action: `confirm-user-registration-auth-user`; User ID as parameter
+* Added action: `confirm-user-registration-block-user`; User ID as parameter
+* Added action: `confirm-user-registration-options`; for extending the plugin settings
+* Added filter: `confirm-user-registration-error-message`; Display different error message
+* Added filter: `confirm-user-registration-save-option`; Save custom options
+* Added filter: `confirm-user-registration-notification-header`; Change notification e-mail header
+* Added filter: `confirm-user-registration-notification-subject`; Change notification e-mail subject
+* Added filter: `confirm-user-registration-notification-message`; Change notification e-mail message
 * Fix: Translation error for de_DE
 * Fix: No javascript loop when no user is selected
 * Enhancement: Prevent to block your own account
