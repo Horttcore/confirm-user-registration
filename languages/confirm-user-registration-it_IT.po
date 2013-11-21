@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Confirm User Registration v2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-21 11:56+0100\n"
-"PO-Revision-Date: 2013-11-21 11:57+0100\n"
+"POT-Creation-Date: 2013-11-21 12:29+0100\n"
+"PO-Revision-Date: 2013-11-21 12:29+0100\n"
 "Last-Translator: horttcore <me@horttcore.de>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -42,13 +42,8 @@ msgstr ""
 
 # @ confirm-user-registration
 #: confirm-user-registration.php:139
-msgctxt "Menu title"
-msgid "Confirm User Registration"
-msgstr "Conferma Registrazione Utente"
-
-# @ confirm-user-registration
-#: confirm-user-registration.php:139
-msgctxt "Page title"
+#, fuzzy
+msgctxt "confirm-user-registration"
 msgid "Confirm User Registration"
 msgstr "Conferma Registrazione Utente"
 
