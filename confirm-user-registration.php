@@ -46,10 +46,7 @@ class Confirm_User_Registration
 	 */
 	function __construct()
 	{
-		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
-
-		add_action( 'admin_print_scripts-users_page_confirm-user-registration', array( $this, 'enqueue_scripts' ) );
-		add_action( 'admin_print_styles-users_page_confirm-user-registration', array( $this, 'enqueue_styles' ) );
+		add_action( is_multisite() ? 'network_admin_menu' : 'admin_menu', array( $this, 'admin_menu' ) );
 
 		add_action( 'wp_ajax_confirm-user-registration-save_settings', array( $this, 'save_settings' ) );
 		add_action( 'admin_init', array( $this, 'load_plugin_textdomain' ) );
@@ -136,7 +133,17 @@ class Confirm_User_Registration
 	 **/
 	public function admin_menu()
 	{
-		add_users_page( _x( 'Confirm User Registration', 'Menu title', 'confirm-user-registration' ), _x( 'Confirm User Registration', 'Page title', 'confirm-user-registration' ), 'promote_users', 'confirm-user-registration', array( $this, 'management' ) );
+		$page = add_submenu_page(
+			'users.php',
+			_x( 'Confirm User Registration', 'Page title', 'confirm-user-registration' ),
+			_x( 'Confirm User Registration', 'Menu title', 'confirm-user-registration' ),
+			is_multisite() ? 'manage_network_users' : 'promote_users',
+			'confirm-user-registration',
+			array( $this, 'management' )
+		);
+
+		add_action( "admin_print_scripts-{$page}", array( $this, 'enqueue_scripts' ) );
+		add_action( "admin_print_styles-{$page}",  array( $this, 'enqueue_styles' ) );
 	}
 
 
