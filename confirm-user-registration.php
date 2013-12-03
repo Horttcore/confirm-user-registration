@@ -82,7 +82,7 @@ class Confirm_User_Registration
 
 			endif;
 
-			add_option( 'confirm-user-registration', array(
+			add_site_option( 'confirm-user-registration', array(
 				# Notifcation to admin
 				'administrator' => get_bloginfo('admin_email'),
 				# Notification to users
@@ -99,23 +99,23 @@ class Confirm_User_Registration
 			if ( $this->is_upgrade() ) :
 
 				// Create new option array
-				add_option( 'confirm-user-registration', array(
+				add_site_option( 'confirm-user-registration', array(
 					# Notifcation to admin
-					'administrator' => get_option( 'cur_administrator' ),
+					'administrator' => get_site_option( 'cur_administrator' ),
 					# Notification to users
-					'error' => get_option( 'cur_error' ),
+					'error' => get_site_option( 'cur_error' ),
 					# Mail
-					'from' => get_option( 'cur_from' ),
-					'subject' => get_option( 'cur_subject' ),
-					'message' => get_option( 'cur_message' )
+					'from' => get_site_option( 'cur_from' ),
+					'subject' => get_site_option( 'cur_subject' ),
+					'message' => get_site_option( 'cur_message' )
 				));
 
 				// Cleanup
-				delete_option( 'cur_administrator' );
-				delete_option( 'cur_error' );
-				delete_option( 'cur_from' );
-				delete_option( 'cur_subject' );
-				delete_option( 'cur_message' );
+				delete_site_option( 'cur_administrator' );
+				delete_site_option( 'cur_error' );
+				delete_site_option( 'cur_from' );
+				delete_site_option( 'cur_subject' );
+				delete_site_option( 'cur_message' );
 
 			endif;
 
@@ -379,7 +379,7 @@ class Confirm_User_Registration
 	 **/
 	public function is_first_time()
 	{
-		if ( !get_option( 'cur_from' ) && !get_option( 'confirm-user-registration' ) ) :
+		if ( !get_site_option( 'cur_from' ) && !get_site_option( 'confirm-user-registration' ) ) :
 			return TRUE;
 		else :
 			return FALSE;
@@ -396,7 +396,7 @@ class Confirm_User_Registration
 	 **/
 	public function is_upgrade()
 	{
-		if ( get_option( 'cur_from' ) ) :
+		if ( get_site_option( 'cur_from' ) ) :
 			return TRUE;
 		else :
 			return FALSE;
@@ -478,7 +478,7 @@ class Confirm_User_Registration
 	public function management_settings()
 	{
 		$this->save_settings();
-		$options = get_option( 'confirm-user-registration' );
+		$options = get_site_option( 'confirm-user-registration' );
 		?>
 		<form method="post" id="confirm-user-registration-settings" data-success="<?php _e( 'Settings saved', 'confirm-user-registration' ); ?>" data-error="<?php _e( '<strong>ERROR:</strong> Could not save settings', 'confirm-user-registration' ); ?>">
 			<div class="icon32" id="icon-tools"><br></div><h2><?php _e( 'Confirm User Registration Settings', 'confirm-user-registration' ); ?></h2>
@@ -575,7 +575,7 @@ class Confirm_User_Registration
 						foreach ( $users as $user ) :
 							$class = ( $i % 2 == 1 ) ? 'alternate' : 'default';
 							$user_data = get_userdata( $user->ID );
-							$user_registered = mysql2date(get_option('date_format'), $user->user_registered);
+							$user_registered = mysql2date( get_option('date_format'), $user->user_registered );
 							?>
 							<tr id="user-<?php echo $user->ID ?>" class="<?php echo $class ?>">
 								<th>
@@ -655,7 +655,7 @@ class Confirm_User_Registration
 			);
 
 			$options = apply_filters( 'confirm-user-registration-save-options', $options );
-			update_option( 'confirm-user-registration', $options);
+			update_site_option( 'confirm-user-registration', $options);
 
 			?>
 			<div class="updated message">
@@ -677,7 +677,7 @@ class Confirm_User_Registration
 	 **/
 	public function send_notification( $user_id )
 	{
-		$options = get_option( 'confirm-user-registration' );
+		$options = get_site_option( 'confirm-user-registration' );
 		$user = get_userdata( $user_id );
 
 		$headers = 'FROM:' . $options['from'] . "\r\n";
@@ -705,7 +705,7 @@ class Confirm_User_Registration
 			return $user[0];
 		else :
 			$user = new WP_Error();
-			$options = get_option( 'confirm-user-registration' );
+			$options = get_site_option( 'confirm-user-registration' );
 			$error_message = apply_filters( 'confirm-user-registration-error-message', $options['error'] );
 			$user->add( 'error', $error_message );
 			return $user;
