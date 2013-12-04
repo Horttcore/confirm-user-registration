@@ -588,7 +588,7 @@ class Confirm_User_Registration
 									<a href="user-edit.php?user_id=<?php echo $user->ID ?>"><?php echo $user->display_name ?></a>
 									<div class="row-actions">
 										<?php if ( current_user_can( 'edit_user',  $user->ID ) ) : ?>
-											<span class="edit"><a href="<?php echo admin_url( 'user-edit.php?user_id=' . $user->ID  ) ?>"><?php _e( 'Edit' ); ?></a>
+											<span class="edit"><a href="<?php echo network_admin_url( 'user-edit.php?user_id=' . $user->ID  ) ?>"><?php _e( 'Edit' ); ?></a>
 										<?php endif; ?>
 										<?php if ( current_user_can( 'edit_user',  $user->ID ) && current_user_can( 'delete_user', $user->ID ) && $user_ID != $user->ID ) : ?>
 											&nbsp;|&nbsp;</span>
