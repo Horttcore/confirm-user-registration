@@ -594,7 +594,7 @@ class Confirm_User_Registration
 											&nbsp;|&nbsp;</span>
 										<?php endif; ?>
 										<?php if ( current_user_can( 'delete_user', $user->ID ) && $user_ID != $user->ID ) : ?>
-											<span class="delete"><a href="<?php echo admin_url( 'users.php?action=delete&user=' . $user->ID . '&_wpnonce=' . wp_create_nonce( 'bulk-users' ) ) ?>"><?php _e( 'Delete' ); ?></a></span>
+											<span class="delete"><a href="<?php echo $this->delete_user_link( $user->ID ); ?>"><?php _e( 'Delete' ); ?></a></span>
 										<?php endif; ?>
 									</div>
 								</td>
@@ -712,7 +712,22 @@ class Confirm_User_Registration
 		endif;
 	}
 
-
+	/**
+	 * Returns the delete user link used on the CUR users list table.
+	 *
+	 * Multisite-compatible.
+	 *
+	 * @access protected
+	 * @return string
+	 * @author r-a-y
+	 */
+	protected function delete_user_link( $user_id = 0 ) {
+		if ( is_multisite() ) {
+			return network_admin_url( 'users.php?action=deleteuser&id=' . $user_id . '&_wpnonce=' . wp_create_nonce( 'deleteuser' ) );
+		} else {
+			return admin_url( 'users.php?action=delete&user=' . $user_id . '&_wpnonce=' . wp_create_nonce( 'bulk-users' ) );
+		}
+	}
 
 }
 new Confirm_User_Registration;
