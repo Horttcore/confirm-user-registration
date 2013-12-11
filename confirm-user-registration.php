@@ -550,7 +550,7 @@ class Confirm_User_Registration
 				<select name="action">
 					<option value=""><?php _e( 'Bulk Actions' ); ?></option>
 					<option value="<?php echo $action_data ?>"><?php echo $title ?></option>
-					<?php if ( current_user_can( 'delete_users' ) ) : ?>
+					<?php if ( current_user_can( 'delete_users' ) && ! is_multisite() ) : ?>
 						<option value="delete"><?php _e( 'Delete' ); ?></option>
 					<?php endif; ?>
 				</select>
