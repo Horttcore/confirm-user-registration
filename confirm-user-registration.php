@@ -136,7 +136,7 @@ class Confirm_User_Registration
 	 **/
 	public function admin_menu()
 	{
-		add_users_page( _x( 'Confirm User Registration', 'Menu title', 'confirm-user-registration' ), _x( 'Confirm User Registration', 'Page title', 'confirm-user-registration' ), 'promote_users', 'confirm-user-registration', array( $this, 'management' ) );
+		add_users_page( _x( 'Confirm User Registration', 'confirm-user-registration' ), _x( 'Confirm User Registration',  'confirm-user-registration' ), 'promote_users', 'confirm-user-registration', array( $this, 'management' ) );
 	}
 
 
