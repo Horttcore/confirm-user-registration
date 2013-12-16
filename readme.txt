@@ -3,8 +3,8 @@ Contributors: Horttcore
 Donate link: http://horttcore.de/
 Tags: user, registration, sign up, user management
 Requires at least: 3.0
-Tested up to: 3.7
-Stable tag: 2.1.1
+Tested up to: 3.8
+Stable tag: 2.1.3
 
 Admins have to confirm each user registration.
 
@@ -14,6 +14,13 @@ Admins have to confirm each user registration.
 A notification will be send when the account gets approved.
 
 == Changelog ==
+
+**v2.1.3
+
+- Added action: `send_user_authentication`; Notification informations as parameters
+- Altered filter: `confirm-user-registration-notification-header`; User as parameter
+- Altered filter: `confirm-user-registration-notification-subject`; User as parameter
+- Altered filter: `confirm-user-registration-notification-message`; User as parameter
 
 **v2.1.2**
 
