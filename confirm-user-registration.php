@@ -674,11 +674,13 @@ class Confirm_User_Registration
 		$user = get_userdata( $user_id );
 
 		$headers = 'FROM:' . $options['from'] . "\r\n";
-		$headers = apply_filters( 'confirm-user-registration-notification-header', $headers );
-		$subject = apply_filters( 'confirm-user-registration-notification-subject', $options['subject'] );
-		$message = apply_filters( 'confirm-user-registration-notification-message', $options['message'] );
+		$headers = apply_filters( 'confirm-user-registration-notification-header', $headers, $user );
+		$subject = apply_filters( 'confirm-user-registration-notification-subject', $options['subject'], $user );
+		$message = apply_filters( 'confirm-user-registration-notification-message', $options['message'], $user );
 
 		wp_mail( $user->data->user_email, $subject, $message, $headers );
+
+		do_action( 'send_user_authentication', $user, $headers, $subject, $message );
 	}
 
 
@@ -701,11 +703,11 @@ class Confirm_User_Registration
 		if ( $this->is_authenticated( $user_id ) ) :
 			return $user;
 		else :
-			$user = new WP_Error();
+			$error = new WP_Error();
 			$options = get_option( 'confirm-user-registration' );
 			$error_message = apply_filters( 'confirm-user-registration-error-message', $options['error'] );
-			$user->add( 'error', $error_message );
-			return $user;
+			$error->add( 'error', $error_message );
+			return apply_filters( 'confirm-user-registration-error', $error, $user );
 		endif;
 	}
 

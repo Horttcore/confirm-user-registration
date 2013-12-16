@@ -26,7 +26,7 @@ No, it doesnt create any new tables. The Plugin uses user meta and options table
 ### Is there any language file?
 
 Yes, its fully translateable.
-English and german are included.
+English, german and italian are included.
 
 ## Screenshots
 
@@ -37,6 +37,14 @@ English and german are included.
 [![Screenshot of login error](https://raw.github.com/Horttcore/confirm-user-registration/master/screenshot-3.jpg)](https://raw.github.com/Horttcore/confirm-user-registration/master/screenshot-3.jpg)
 
 ## Changelog
+
+### v2.1.3
+
+* Added action: `send_user_authentication`; Notification informations as parameters
+* Added action: `confirm-user-registration-error`; Authentication error
+* Enhancement: `confirm-user-registration-notification-header` filter has user as arguement
+* Enhancement: `confirm-user-registration-notification-subject` filter has user as arguement
+* Enhancement: `confirm-user-registration-notification-message` filter has user as arguement
 
 ### v2.1.2
 
