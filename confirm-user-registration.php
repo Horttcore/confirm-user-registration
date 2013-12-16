@@ -4,7 +4,7 @@ Plugin Name: Confirm User Registration
 Plugin URI: http://www.horttcore.de/
 Description: Admins have to confirm a user registration - a notification will be send when the account gets activated
 Author: Ralf Hortt
-Version: 2.1.1
+Version: 2.1.2
 Author URI: http://horttcore.de/
 */
 
@@ -691,11 +691,15 @@ class Confirm_User_Registration
 	 **/
 	public function wp_authenticate_user( $user )
 	{
-		$user = get_users( array( 'search' => $user->user_login ) );
-		$user_id = $user[0]->ID;
+		$user = get_user_by( 'login', $user->user_login );
+
+		if ( !is_object( $user ) )
+			return FALSE;
+
+		$user_id = $user->ID;
 
 		if ( $this->is_authenticated( $user_id ) ) :
-			return $user[0];
+			return $user;
 		else :
 			$user = new WP_Error();
 			$options = get_option( 'confirm-user-registration' );

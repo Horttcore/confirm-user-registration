@@ -15,6 +15,10 @@ A notification will be send when the account gets approved.
 
 == Changelog ==
 
+**v2.1.2**
+
+- Bugfix: Usernames with an `@` in it will be confirmed correctly
+
 **v2.1.1**
 
 - Bugfix: Bulk delete checks for delete_users capability
