@@ -26,7 +26,7 @@ No, it doesnt create any new tables. The Plugin uses user meta and options table
 ### Is there any language file?
 
 Yes, its fully translateable.
-English, german and italian are included.
+English, german, italian and serbo-croatian are included.
 
 ## Screenshots
 
@@ -37,6 +37,10 @@ English, german and italian are included.
 [![Screenshot of login error](https://raw.github.com/Horttcore/confirm-user-registration/master/screenshot-3.jpg)](https://raw.github.com/Horttcore/confirm-user-registration/master/screenshot-3.jpg)
 
 ## Changelog
+
+### v2.1.4
+
+* Added Serbo-Croatian language file by Borisa Djuraskovic ( www.webhostinghub.com )
 
 ### v2.1.3
 

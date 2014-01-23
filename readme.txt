@@ -4,7 +4,7 @@ Donate link: http://horttcore.de/
 Tags: user, registration, sign up, user management
 Requires at least: 3.0
 Tested up to: 3.8
-Stable tag: 2.1.3
+Stable tag: 2.1.4
 
 Admins have to confirm each user registration.
 
@@ -14,6 +14,10 @@ Admins have to confirm each user registration.
 A notification will be send when the account gets approved.
 
 == Changelog ==
+
+**v2.1.4
+
+- Added Serbo-Croatian language file by Borisa Djuraskovic ( www.webhostinghub.com )
 
 **v2.1.3
 
