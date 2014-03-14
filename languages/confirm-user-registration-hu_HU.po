@@ -1,0 +1,199 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Confirm User Registration v2.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2014-03-14 18:33+0100\n"
+"Last-Translator: Laszlo Espadas <hu@li.org>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ../\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:92
+msgid "<strong>ERROR:</strong> Your account has to be confirmed by an administrator before you can login"
+msgstr "<strong>FIGYELEM:</strong> A fiók adminisztrátori megerősítésre vár. Megerősítés után be lehet lépni az oldalra."
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:454
+msgid "Pending Users"
+msgstr "Függőben lévő tagok"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:455
+msgid "Authenticated Users"
+msgstr "Hitelesített tagok"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:456
+msgid "Settings"
+msgstr "Beállítások"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:475
+msgid "Settings saved"
+msgstr "Beállítások mentve"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:475
+msgid "<strong>ERROR:</strong> Could not save settings"
+msgstr "<strong>HIBA:</strong> Nem lehet menteni a beállításokat"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:476
+msgid "Confirm User Registration Settings"
+msgstr "Tag regisztrációs megerősítés beállítások"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:479
+msgid "Login notice"
+msgstr "Belépés megjegyzés"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:482
+msgid "Error Message"
+msgstr "Hiba üzenet"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:486
+msgid "E-Mail notification"
+msgstr "E-mail értesítés"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:502
+msgid "Save"
+msgstr "Mentés"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:530
+msgid "Authenticate Users"
+msgstr "Tag hitelesítés"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:530
+msgid "Block Users"
+msgstr "Tak kitiltás"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:553
+msgid "Gravatar"
+msgstr "Gravatar"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:554
+msgid "Name"
+msgstr "Név"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:555
+msgid "E-Mail"
+msgstr "E-mail cím"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:556
+msgid "Role"
+msgstr "Oldal szerepkör"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:557
+msgid "Registered"
+msgstr "Regisztrált"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:613
+msgid "No Users found"
+msgstr "Nincsenek tagok"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:489
+msgid "From"
+msgstr "Küldő"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:493
+msgid "Subject"
+msgstr "Tárgy"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:497
+msgid "Message"
+msgstr "Levél"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:139
+msgctxt "Menu title"
+msgid "Confirm User Registration"
+msgstr "Tag regisztráció megerősítés"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:139
+msgctxt "Page title"
+msgid "Confirm User Registration"
+msgstr "Tag regisztráció megerősítés"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:169
+msgid "1 user authenticated"
+msgstr "1 tag megerősítve"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:171
+msgid "users authenticated"
+msgstr "tag megerősítve"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:205
+msgid "1 user blocked"
+msgstr "1 tag kitiltva"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:207
+msgid "users blocked"
+msgstr "tag kitiltva"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:242
+msgid "1 user deleted"
+msgstr "1 tag törölve"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:244
+msgid "users deleted"
+msgstr "tag törölve"
+
+#@ confirm-user-registration
+#: confirm-user-registration.php:264
+msgid "Are you sure you want to delete these users?"
+msgstr "Biztos töröljük ezt a tagot?"
+
+#@ default
+#: confirm-user-registration.php:542
+msgid "Bulk Actions"
+msgstr "Csoportművelet"
+
+#@ default
+#: confirm-user-registration.php:544
+#: confirm-user-registration.php:585
+msgid "Delete"
+msgstr "Törlés"
+
+#@ default
+#: confirm-user-registration.php:546
+msgid "Apply"
+msgstr "Elfogadás"
+
+#@ default
+#: confirm-user-registration.php:579
+msgid "Edit"
+msgstr "Szerkesztés"
+
