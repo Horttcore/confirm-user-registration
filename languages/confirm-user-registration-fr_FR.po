@@ -1,0 +1,200 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Confirm User Registration v2.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2013-11-17 17:40:35+0000\n"
+"Last-Translator: Guiss <guiss@guiss.org>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: confirm-user-registration.php:92
+#@ confirm-user-registration
+msgid "<strong>ERROR:</strong> Your account has to be confirmed by an administrator before you can login"
+msgstr "<strong>Erreur:</strong>  Votre compte doit être confirmée par un administrateur avant que vous puissiez ouvrir une session"
+
+#: confirm-user-registration.php:454
+#@ confirm-user-registration
+msgid "Pending Users"
+msgstr "Utilisateurs en attente"
+
+#: confirm-user-registration.php:455
+#@ confirm-user-registration
+msgid "Authenticated Users"
+msgstr "Utilisateurs validés"
+
+#: confirm-user-registration.php:456
+#@ confirm-user-registration
+msgid "Settings"
+msgstr "Préférences"
+
+#: confirm-user-registration.php:475
+#@ confirm-user-registration
+msgid "Settings saved"
+msgstr "Préférences enregistrées"
+
+#: confirm-user-registration.php:475
+#@ confirm-user-registration
+msgid "<strong>ERROR:</strong> Could not save settings"
+msgstr "<strong>ERREUR:</strong> Impossible d'enregister les préférences" 
+
+#: confirm-user-registration.php:476
+#@ confirm-user-registration
+msgid "Confirm User Registration Settings"
+msgstr "Préférence de confirmation des inscriptions utilisateurs"
+
+#: confirm-user-registration.php:479
+#@ confirm-user-registration
+msgid "Login notice"
+msgstr "Notification d'identifiant"
+
+#: confirm-user-registration.php:482
+#@ confirm-user-registration
+msgid "Error Message"
+msgstr "Message d'erreur"
+
+#: confirm-user-registration.php:486
+#@ confirm-user-registration
+msgid "E-Mail notification"
+msgstr "Email de notification"
+
+#: confirm-user-registration.php:502
+#@ confirm-user-registration
+msgid "Save"
+msgstr "Enregistrer"
+
+#: confirm-user-registration.php:530
+#@ confirm-user-registration
+msgid "Authenticate Users"
+msgstr "Valider les utilisateurs "
+
+#: confirm-user-registration.php:530
+#@ confirm-user-registration
+msgid "Block Users"
+msgstr "Bloquer les utilisateurs"
+
+#: confirm-user-registration.php:553
+#@ confirm-user-registration
+msgid "Gravatar"
+msgstr "Gravatar"
+
+#: confirm-user-registration.php:554
+#@ confirm-user-registration
+msgid "Name"
+msgstr "Nom"
+
+#: confirm-user-registration.php:555
+#@ confirm-user-registration
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: confirm-user-registration.php:556
+#@ confirm-user-registration
+msgid "Role"
+msgstr "Rôle"
+
+#: confirm-user-registration.php:557
+#@ confirm-user-registration
+msgid "Registered"
+msgstr "Inscrit"
+
+#: confirm-user-registration.php:613
+#@ confirm-user-registration
+msgid "No Users found"
+msgstr "Aucun utilisateur trouvé"
+
+#: confirm-user-registration.php:489
+#@ confirm-user-registration
+msgid "From"
+msgstr "De"
+
+#: confirm-user-registration.php:493
+#@ confirm-user-registration
+msgid "Subject"
+msgstr "Sujet"
+
+#: confirm-user-registration.php:497
+#@ confirm-user-registration
+msgid "Message"
+msgstr "Message"
+
+#: confirm-user-registration.php:139
+#@ confirm-user-registration
+msgctxt "Menu title"
+msgid "Confirm User Registration"
+msgstr "Confirmation des inscriptions utilisateurs"
+
+#: confirm-user-registration.php:139
+#@ confirm-user-registration
+msgctxt "Page title"
+msgid "Confirm User Registration"
+msgstr "confirmation des inscriptions utilisateurs"
+
+#: confirm-user-registration.php:169
+#@ confirm-user-registration
+msgid "1 user authenticated"
+msgstr "1 utilisateur validé"
+
+#: confirm-user-registration.php:171
+#@ confirm-user-registration
+msgid "users authenticated"
+msgstr "utilisateurs validés"
+
+#: confirm-user-registration.php:205
+#@ confirm-user-registration
+msgid "1 user blocked"
+msgstr "1 utilisateur bloqué"
+
+#: confirm-user-registration.php:207
+#@ confirm-user-registration
+msgid "users blocked"
+msgstr "utilisateurs bloqués"
+
+#: confirm-user-registration.php:242
+#@ confirm-user-registration
+msgid "1 user deleted"
+msgstr "1 utilisateur effacé"
+
+#: confirm-user-registration.php:244
+#@ confirm-user-registration
+msgid "users deleted"
+msgstr "utilisateurs effacés"
+
+#: confirm-user-registration.php:264
+#@ confirm-user-registration
+msgid "Are you sure you want to delete these users?"
+msgstr "Etes-vous certain de vouloir effacer ces utilisateurs ?"
+
+#: confirm-user-registration.php:542
+#@ default
+msgid "Bulk Actions"
+msgstr "Actions groupées"
+
+#: confirm-user-registration.php:544
+#: confirm-user-registration.php:585
+#@ default
+msgid "Delete"
+msgstr "Effacer"
+
+#: confirm-user-registration.php:546
+#@ default
+msgid "Apply"
+msgstr "Appliquer"
+
+#: confirm-user-registration.php:579
+#@ default
+msgid "Edit"
+msgstr "Modifier"
+

@@ -38,6 +38,10 @@ English, german, italian and serbo-croatian are included.
 
 ## Changelog
 
+### v2.1.5
+
+* Added French language file by Guiss ( www.guiss.org )
+
 ### v2.1.4
 
 * Added Serbo-Croatian language file by Borisa Djuraskovic ( www.webhostinghub.com )

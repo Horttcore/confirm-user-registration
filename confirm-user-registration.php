@@ -4,7 +4,7 @@ Plugin Name: Confirm User Registration
 Plugin URI: http://www.horttcore.de/
 Description: Admins have to confirm a user registration - a notification will be send when the account gets activated
 Author: Ralf Hortt
-Version: 2.1.4
+Version: 2.1.5
 Author URI: http://horttcore.de/
 */
 
