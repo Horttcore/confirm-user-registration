@@ -37,10 +37,19 @@ define( 'RH_CUR_BASEDIR', dirname( plugin_basename(__FILE__) ) );
 class Confirm_User_Registration
 {
 
+    protected $per_page = 100;
 
+    protected $current_page = 1;
 
 	/**
+     * Total items found by last get_authed_users() or get_pending_users()
 	 *
+     * @var int
+     */
+    protected $total_found = 0;
+
+    /**
+     *
 	 * Construct
 	 *
 	 */
@@ -57,6 +66,8 @@ class Confirm_User_Registration
 		add_action( 'wp_authenticate_user', array( $this, 'wp_authenticate_user' ) ); # Prevent login if user is not authed
 
 		register_activation_hook( __FILE__, array( $this, 'activation' ) );
+
+        $this->current_page = isset($_GET['paged']) ? (int)$_GET['paged'] : 1;
 	}
 
 
@@ -285,17 +296,24 @@ class Confirm_User_Registration
 	 * Get authed users
 	 *
 	 * @access public
+     * @param string $user_search
 	 * @return array Users
 	 * @author Ralf Hortt
 	 **/
-	public function get_authed_users()
-	{
-		return get_users(array(
-			'meta_key' => 'authentication',
-			'meta_compage' => '=',
-			'meta_value' => 1
-		));
-	}
+    public function get_authed_users($user_search = '')
+    {
+        $user_search = new WP_User_Query(array(
+            'meta_key'      => 'authentication',
+            'meta_compare'  => '=',
+            'meta_value'    => 1,
+            'search'        => $user_search ? "*{$user_search}*" : '',
+            'offset'        => ($this->current_page - 1) * $this->per_page,
+            'number'        => $this->per_page,
+            'count_total'   => true,
+        ));
+        $this->total_found = $user_search->get_total();
+        return (array)$user_search->get_results();
+    }
 
 
 
@@ -303,45 +321,25 @@ class Confirm_User_Registration
 	 * Get pending users
 	 *
 	 * @access public
+     * @param string $user_search
 	 * @return array Users
 	 * @author Ralf Hortt
 	 **/
-	public function get_pending_users()
+    public function get_pending_users($user_search = '')
 	{
-		$users = get_users();
-
-		$authed_users = $this->get_authed_users();
-
-		$authed_ids = array();
-
-		if ( $authed_users ) :
-
-			foreach ( $authed_users as $authed_user ) :
-
-				array_push( $authed_ids, $authed_user->ID );
-
-			endforeach;
-
-		endif;
-
-		$pending_users = array();
-
-		if ( $users ) :
-
-			foreach ( $users as $user ) :
-
-				if ( !in_array( $user->ID, $authed_ids ) ) :
-
-					array_push( $pending_users, $user );
-
-				endif;
-
-			endforeach;
-
-		endif;
-
-		return $pending_users;
-	}
+        $user_search = new WP_User_Query(array(
+            'meta_key'      => 'authentication',
+            'meta_compare'  => 'NOT EXISTS',
+            'orderby'       => 'registered',
+            'order'         => 'DESC',
+            'search'        => $user_search ? "*{$user_search}*" : '',
+            'offset'        => ($this->current_page - 1) * $this->per_page,
+            'number'        => $this->per_page,
+            'count_total'   => true,
+        ));
+        $this->total_found = $user_search->get_total();
+        return (array)$user_search->get_results();
+    }
 
 
 
@@ -506,13 +504,93 @@ class Confirm_User_Registration
 		<?php
 	}
 
+    /**
+     * Display page navigation.
+     *
+     * This function has been copied from WP_List_Table.
+     *
+     * @param $which 'top' or 'bottom'
+     * @param $per_page
+     * @param $total_items
+     * @param $current_page
+     * @return string
+     */
+    function pagination($which, $per_page, $total_items, $current_page)
+    {
+        $total_pages = ceil($total_items / $per_page);
 
+        $output = '<span class="displaying-num">' . sprintf( _n( '1 item', '%s items', $total_items ), number_format_i18n( $total_items ) ) . '</span>';
+
+        $current_url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+
+        $current_url = remove_query_arg( array( 'hotkeys_highlight_last', 'hotkeys_highlight_first' ), $current_url );
+
+        $page_links = array();
+
+        $disable_first = $disable_last = '';
+        if ( $current_page == 1 )
+            $disable_first = ' disabled';
+        if ( $current_page == $total_pages )
+            $disable_last = ' disabled';
+
+        $page_links[] = sprintf( "<a class='%s' title='%s' href='%s'>%s</a>",
+            'first-page' . $disable_first,
+            esc_attr__( 'Go to the first page' ),
+            esc_url( remove_query_arg( 'paged', $current_url ) ),
+            '&laquo;'
+        );
+
+        $page_links[] = sprintf( "<a class='%s' title='%s' href='%s'>%s</a>",
+            'prev-page' . $disable_first,
+            esc_attr__( 'Go to the previous page' ),
+            esc_url( add_query_arg( 'paged', max( 1, $current_page-1 ), $current_url ) ),
+            '&lsaquo;'
+        );
+
+        if ( 'bottom' == $which )
+            $html_current_page = $current_page;
+        else
+            $html_current_page = sprintf( "<input class='current-page' title='%s' type='text' name='paged' value='%s' size='%d' />",
+                esc_attr__( 'Current page' ),
+                $current_page,
+                strlen( $total_pages )
+            );
+
+        $html_total_pages = sprintf( "<span class='total-pages'>%s</span>", number_format_i18n( $total_pages ) );
+        $page_links[] = '<span class="paging-input">' . sprintf( _x( '%1$s of %2$s', 'paging' ), $html_current_page, $html_total_pages ) . '</span>';
+
+        $page_links[] = sprintf( "<a class='%s' title='%s' href='%s'>%s</a>",
+            'next-page' . $disable_last,
+            esc_attr__( 'Go to the next page' ),
+            esc_url( add_query_arg( 'paged', min( $total_pages, $current_page+1 ), $current_url ) ),
+            '&rsaquo;'
+        );
+
+        $page_links[] = sprintf( "<a class='%s' title='%s' href='%s'>%s</a>",
+            'last-page' . $disable_last,
+            esc_attr__( 'Go to the last page' ),
+            esc_url( add_query_arg( 'paged', $total_pages, $current_url ) ),
+            '&raquo;'
+        );
+
+        $pagination_links_class = 'pagination-links';
+        if ( ! empty( $infinite_scroll ) )
+            $pagination_links_class = ' hide-if-js';
+        $output .= "\n<span class='$pagination_links_class'>" . join( "\n", $page_links ) . '</span>';
+
+        if ( $total_pages )
+            $page_class = $total_pages < 2 ? ' one-page' : '';
+        else
+            $page_class = ' no-pages';
+
+        return "<div class='tablenav-pages{$page_class}'>$output</div>";
+    }
 
 	/**
 	 * Users tab
 	 *
 	 * @access public
-	 * @param str $tag {pending|auth} Tab to show
+     * @param string $tag {pending|auth} Tab to show
 	 * @return void
 	 * @author Ralf Hortt
 	 **/
@@ -528,12 +606,23 @@ class Confirm_User_Registration
 			$this->delete_users( $_POST['users'] );
 		endif;
 
-		$users = ( 'pending' == $tab || '' == $tab ) ? $this->get_pending_users() : $this->get_authed_users();
+        $user_search = isset($_REQUEST['s']) ? wp_unslash(trim($_REQUEST['s'])) : '';
+        $users = ( 'pending' == $tab || '' == $tab ) ? $this->get_pending_users($user_search) : $this->get_authed_users($user_search);
 		$title = ( 'pending' == $tab || '' == $tab ) ? __( 'Authenticate Users', 'confirm-user-registration' ) : __( 'Block Users', 'confirm-user-registration' );
 		$action_data = ( 'pending' == $tab || '' == $tab ) ? 'auth' : 'block';
 		?>
 
 		<div class="icon32" id="icon-users"><br></div><h2><?php echo $title ?></h2>
+
+        <form method="get" action="<?php echo admin_url('/users.php'); ?>">
+            <p class="search-box">
+                <label class="screen-reader-text" for="<?php echo 'user' ?>"><?php echo __( 'Search Users' ); ?>:</label>
+                <input type="search" id="<?php echo 'user' ?>" name="s" value="<?php _admin_search_query(); ?>" />
+                <?php submit_button( __( 'Search Users' ), 'button', false, false, array('id' => 'search-submit') ); ?>
+                <input type="hidden" name="page" value="<?php echo $_GET['page']; ?>">
+                <input type="hidden" name="tab" value="<?php echo $tab; ?>">
+            </p>
+        </form>
 
 		<form method="post">
 
@@ -548,6 +637,8 @@ class Confirm_User_Registration
 					<?php endif; ?>
 				</select>
 				<input type="submit" value="<?php _e( 'Apply' ); ?>" class="button action doaction" name="" data-value="<?php echo $action_data ?>">
+
+                <?php echo $this->pagination('top', $this->per_page, $this->total_found, $this->current_page); ?>
 			</div>
 
 			<table class="widefat">
@@ -623,7 +714,9 @@ class Confirm_User_Registration
 					?>
 				</tbody>
 			</table>
-
+            <div class="tablenav bottom">
+                <?php echo $this->pagination('bottom', $this->per_page, $this->total_found, $this->current_page); ?>
+            </div>
 		</form>
 		<?php
 	}
