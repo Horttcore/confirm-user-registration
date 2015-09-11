@@ -1,0 +1,161 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Confirm User Registration v2.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2015-09-11 10:44-0300\n"
+"Last-Translator: Cristiano A <c.numb2@gmail.com>\n"
+"Language-Team: \n"
+"Language: German\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Portuguese\n"
+"X-Poedit-Country: BRAZIL\n"
+
+#: confirm-user-registration.php:542
+msgid "Bulk Actions"
+msgstr "Ações em massa"
+
+#: confirm-user-registration.php:544
+#: confirm-user-registration.php:585
+msgid "Delete"
+msgstr "Apagar"
+
+#: confirm-user-registration.php:546
+msgid "Apply"
+msgstr "Aplicar"
+
+#: confirm-user-registration.php:579
+msgid "Edit"
+msgstr "Editar"
+
+#: confirm-user-registration.php:92
+msgid "<strong>ERROR:</strong> Your account has to be confirmed by an administrator before you can login"
+msgstr "<strong>ERRO:</strong> Sua conta precisa ser confirmada por um administrador antes que você possa fazer login"
+
+#: confirm-user-registration.php:454
+msgid "Pending Users"
+msgstr "Usuários pendentes"
+
+#: confirm-user-registration.php:455
+msgid "Authenticated Users"
+msgstr "Usuários autenticados"
+
+#: confirm-user-registration.php:456
+msgid "Settings"
+msgstr "Configurações"
+
+#: confirm-user-registration.php:475
+msgid "Settings saved"
+msgstr "Configurações salvas"
+
+#: confirm-user-registration.php:475
+msgid "<strong>ERROR:</strong> Could not save settings"
+msgstr "<strong>ERRO:</strong> Não foi possível salvar as configurações"
+
+#: confirm-user-registration.php:476
+msgid "Confirm User Registration Settings"
+msgstr "Confirmar Configurações"
+
+#: confirm-user-registration.php:479
+msgid "Login notice"
+msgstr "Info de Login"
+
+#: confirm-user-registration.php:482
+msgid "Error Message"
+msgstr "Mensagem de erro"
+
+#: confirm-user-registration.php:486
+msgid "E-Mail notification"
+msgstr "Email de notificação"
+
+#: confirm-user-registration.php:502
+msgid "Save"
+msgstr "Salvar"
+
+#: confirm-user-registration.php:530
+msgid "Authenticate Users"
+msgstr "Autenticar usuários"
+
+#: confirm-user-registration.php:530
+msgid "Block Users"
+msgstr "Bloquear usuários"
+
+#: confirm-user-registration.php:553
+#, fuzzy
+msgid "Gravatar"
+msgstr "Gravatar"
+
+#: confirm-user-registration.php:554
+msgid "Name"
+msgstr "Nome"
+
+#: confirm-user-registration.php:555
+#, fuzzy
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: confirm-user-registration.php:556
+msgid "Role"
+msgstr "Nível de acesso"
+
+#: confirm-user-registration.php:557
+msgid "Registered"
+msgstr "Registrado"
+
+#: confirm-user-registration.php:613
+msgid "No Users found"
+msgstr "Não foram encontrados usuários"
+
+#: confirm-user-registration.php:489
+msgid "From"
+msgstr "De"
+
+#: confirm-user-registration.php:493
+msgid "Subject"
+msgstr "Assunto"
+
+#: confirm-user-registration.php:497
+msgid "Message"
+msgstr "Mensagem"
+
+#: confirm-user-registration.php:139
+msgctxt "Menu title"
+msgid "Confirm User Registration"
+msgstr "Confirmar Registro de Usuários"
+
+#: confirm-user-registration.php:139
+msgctxt "Page title"
+msgid "Confirm User Registration"
+msgstr "Confirmar Registro de Usuários"
+
+#: confirm-user-registration.php:169
+msgid "1 user authenticated"
+msgstr "1 usuário autenticado"
+
+#: confirm-user-registration.php:171
+msgid "users authenticated"
+msgstr "usuários autenticados"
+
+#: confirm-user-registration.php:205
+msgid "1 user blocked"
+msgstr "1 usuário bloqueado"
+
+#: confirm-user-registration.php:207
+msgid "users blocked"
+msgstr "usuários bloqueados"
+
+#: confirm-user-registration.php:242
+msgid "1 user deleted"
+msgstr "1 usuário apagado"
+
+#: confirm-user-registration.php:244
+msgid "users deleted"
+msgstr "usuários apagados"
+
+#: confirm-user-registration.php:264
+msgid "Are you sure you want to delete these users?"
+msgstr "Deseja apagar estes usuários?"
+
